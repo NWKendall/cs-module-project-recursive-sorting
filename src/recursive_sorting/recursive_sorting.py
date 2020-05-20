@@ -29,7 +29,7 @@ def merge(arrA, arrB):
 
 # TO-DO: implement the Merge Sort function below USING RECURSION
 def merge_sort(arr):
-    # split here
+    # divides/splits data here
     # Your code here
     if len(arr) > 1:
     # stuff to left in L
@@ -47,26 +47,40 @@ def merge_sort(arr):
 
 # implement an in-place merge sort algorithm
 def merge_in_place(arr, start, mid, end):
-    # Your code here       
-    L = arr[start:mid]
-    R = arr[mid:end]
-    i = j = 0
-    for k in range(start, end):
-        if j >= len(R) or (i < len(L) and L[i] < R[j]):
-            arr[k] = L[i]
-            i += 1        
+    # Your code here
+    # re-building/sorting the dataset
+    
+    L = arr[start : mid+1]
+    R = arr[mid+1 : end+1]
+    a = b = 0
+    c = start
+    for k in range(c, end + 1):
+        # make sure values within range
+        # compare a and b
+        if a >= len(L):
+            arr[k] = R[b]
+            b += 1
+        elif b >= len(R):
+            arr[k] = L[a]
+            a += 1
+        elif L[a] < R[b]:
+            arr[k] = L[a]
+            a += 1
         else:
-            arr[k] = R[j]
-            j += 1
+            arr[k] = R[b]
+            b += 1
     return arr
 
-
 def merge_sort_in_place(arr, l, r):
-    # Your code here  
-    if r - l > 1:
-        mid = (l+r) // 2
+    # Your code here
+    # halfing the data set
+
+    if r - l > 0:
+        mid = (l+r) // 2 # double slash rounds floats down to 0dp
+        # arr here 
         merge_sort_in_place(arr, l, mid)
-        merge_sort_in_place(arr, mid, r)
+        # arr is the original array, mid, l and r refer to the parameters required to sort it on loc 49
+        merge_sort_in_place(arr, mid+1, r)
         merge_in_place(arr, l, mid, r)
 
     return arr
